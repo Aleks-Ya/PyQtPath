@@ -3,10 +3,6 @@ from typing import Optional
 from PyQt6.QtWidgets import QWidget
 
 
-def add_one(number):
-    return number + 1
-
-
 def get_nested_child(widget: QWidget, *path: type[QWidget] | int) -> Optional:
     path_list: list[type[QWidget] | int] = list(path)
     normalized_path: list[(type[QWidget], int)] = __normalize_path(path_list)

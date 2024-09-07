@@ -1,10 +1,10 @@
 [project]
 name = "PyQtPath"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
     { name = "Alexey Yablokov", email = "alex_ya@mailbox.org" }
 ]
-description = "Retrieve PyQt widgets by path"
+description = "Retrieve nested PyQt widgets by path"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
@@ -14,8 +14,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/pypa/sampleproject"
-Issues = "https://github.com/pypa/sampleproject/issues"
+Homepage = "https://github.com/Aleks-Ya/PyQtPath"
+Issues = "https://github.com/Aleks-Ya/PyQtPath/issues"
 
 [build-system]
 requires = ["setuptools>=61.0"]
