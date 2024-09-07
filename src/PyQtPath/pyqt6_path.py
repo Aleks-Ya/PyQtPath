@@ -1,11 +1,14 @@
+from types import ModuleType
 from typing import Optional
+import importlib
 
 from PyQt6.QtWidgets import QWidget
 
 
-def get_nested_child(widget: QWidget, *path: type[QWidget] | int) -> Optional:
-    path_list: list[type[QWidget] | int] = list(path)
-    normalized_path: list[(type[QWidget], int)] = __normalize_path(path_list)
+def get_nested_child(widget: QWidget, path: str) -> Optional:
+    if widget is None or path is None or len(path) == 0:
+        return None
+    normalized_path: list[(type[QWidget], int)] = __normalize_path(path)
     return __nested_child(widget, normalized_path)
 
 
@@ -21,16 +24,17 @@ def __nested_child(widget: QWidget, path: list[(type[QWidget], int)]) -> Optiona
     return current_widget
 
 
-def __normalize_path(path: list[type[QWidget] | int]) -> list[(type[QWidget], int)]:
+def __normalize_path(path: str) -> list[(type[QWidget], int)]:
     if path is None or len(path) == 0:
         return []
-    if isinstance(path[0], int):
-        raise RuntimeError("The 1st element cannot be an index")
-    for i, part in enumerate(path):
-        if isinstance(part, int):
+    parts: list[str] = path.split("/")
+    for i, part in enumerate(parts):
+        if part.isdigit():
             continue
-        next_part: type[QWidget] | int = path[i + 1] if i < len(path) - 1 else None
-        if next_part is not None and isinstance(next_part, int):
-            yield part, next_part
+        next_part: str = parts[i + 1] if i < len(parts) - 1 else None
+        module: ModuleType = importlib.import_module("PyQt6.QtWidgets")
+        clazz: type[QWidget] = getattr(module, part)
+        if next_part is not None and next_part.isdigit():
+            yield clazz, int(next_part)
         else:
-            yield part, 0
+            yield clazz, 0

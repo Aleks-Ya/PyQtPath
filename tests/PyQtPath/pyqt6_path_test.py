@@ -8,16 +8,16 @@ def test_get_nested_element(qtbot: QtBot):
     window: QWidget = __create_window()
     qtbot.addWidget(window)
 
-    label: QLabel = get_nested_child(window, QLabel)
+    label: QLabel = get_nested_child(window, "QLabel")
     assert label.text() == "Hello, World!"
 
-    dialog_label: QLabel = get_nested_child(window, QDialog, QLabel)
+    dialog_label: QLabel = get_nested_child(window, "QDialog/QLabel")
     assert dialog_label.text() == "This is a dialog"
 
-    ok_button: QPushButton = get_nested_child(window, QDialog, QPushButton, 0)
+    ok_button: QPushButton = get_nested_child(window, "QDialog/QPushButton/0")
     assert ok_button.text() == "Ok"
 
-    close_button: QPushButton = get_nested_child(window, QDialog, QPushButton, 1)
+    close_button: QPushButton = get_nested_child(window, "QDialog/QPushButton/1")
     assert close_button.text() == "Close"
 
 

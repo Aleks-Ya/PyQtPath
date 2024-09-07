@@ -6,9 +6,7 @@ Retrieve PyQt widgets by path.
 
 ## Build
 
-Build: `python -m build`
+Build and upload to PiPy: `./upload_to_pipy.sh`
 
-Upload to Test PiPy: `python -m twine upload dist/*`
-
-Install locally: `python -m pip install --no-deps -U PyQtPath`
+Install locally: `python -m pip install --no-deps --no-cache-dir -U PyQtPath`
 
