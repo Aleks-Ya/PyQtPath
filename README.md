@@ -1,6 +1,8 @@
 # PyQtPath
 
-Retrieve PyQt widgets by path
+Retrieve PyQt widgets by path.
+
+[PyPi page](https://pypi.org/project/PyQtPath)
 
 ## Build
 
