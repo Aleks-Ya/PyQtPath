@@ -1,5 +1,6 @@
 import pytest
-from PyQt6.QtWidgets import QWidget, QLabel, QDialog, QVBoxLayout, QPushButton, QGroupBox, QCheckBox, QComboBox
+from PyQt6.QtWidgets import QWidget, QLabel, QDialog, QVBoxLayout, QPushButton, QGroupBox, QCheckBox, QComboBox, \
+    QHBoxLayout
 
 
 @pytest.fixture
@@ -9,7 +10,7 @@ def window() -> QWidget:
     layout: QVBoxLayout = QVBoxLayout()
     layout.setObjectName("window-layout")
     group_box: QGroupBox = __create_group_box()
-    box_layout: QVBoxLayout = __create_box_layout()
+    box_layout: QHBoxLayout = __create_box_layout()
     combo_box: QComboBox = __create_combo_box()
 
     layout.addWidget(label)
@@ -47,17 +48,27 @@ def __create_group_box() -> QGroupBox:
     return group_box
 
 
-def __create_box_layout() -> QVBoxLayout:
+def __create_box_layout() -> QHBoxLayout:
     label1: QLabel = QLabel("VBox Label 1")
     label2: QLabel = QLabel("VBox Label 2")
-    layout: QVBoxLayout = QVBoxLayout()
-    layout.setObjectName("vbox-layout")
-    layout.addWidget(label1)
-    layout.addWidget(label2)
-    return layout
+    layout1: QVBoxLayout = QVBoxLayout()
+    layout1.setObjectName("vbox-layout-1")
+    layout1.addWidget(label1)
+    layout1.addWidget(label2)
+
+    combo_box: QComboBox = QComboBox()
+    combo_box.setObjectName("combo-box-2")
+    layout2: QVBoxLayout = QVBoxLayout()
+    layout2.setObjectName("vbox-layout-2")
+    layout2.addWidget(combo_box)
+
+    top_layout: QHBoxLayout = QHBoxLayout()
+    top_layout.addLayout(layout1)
+    top_layout.addLayout(layout2)
+    return top_layout
 
 
 def __create_combo_box() -> QComboBox:
     combo_box: QComboBox = QComboBox()
-    combo_box.addItems(["Option 1", "Option 2"])
+    combo_box.setObjectName("combo-box-1")
     return combo_box

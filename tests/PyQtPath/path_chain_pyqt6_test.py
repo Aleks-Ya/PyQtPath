@@ -45,17 +45,23 @@ def test_layout(window: QWidget, qtbot: QtBot):
     window_layout: QVBoxLayout = path(window).layout().get()
     assert window_layout.objectName() == "window-layout"
 
-    vbox_layout: QVBoxLayout = path(window).layout().layout().get()
-    assert vbox_layout.objectName() == "vbox-layout"
+    vbox_layout_1: QVBoxLayout = path(window).layout().layout().layout().get()
+    assert vbox_layout_1.objectName() == "vbox-layout-1"
 
-    label1: QLabel = path(window).layout().layout().label().get()
+    label1: QLabel = path(window).layout().layout().layout().label().get()
     assert label1.text() == "VBox Label 1"
 
-    label2: QLabel = path(window).layout().layout().label(1).get()
+    label2: QLabel = path(window).layout().layout().layout().label(1).get()
     assert label2.text() == "VBox Label 2"
+
+    vbox_layout_2: QVBoxLayout = path(window).layout().layout().layout(1).get()
+    assert vbox_layout_2.objectName() == "vbox-layout-2"
+
+    combo_box: QComboBox = path(window).layout().layout().layout(1).combobox().get()
+    assert combo_box.objectName() == "combo-box-2"
 
 
 def test_combo_box(window: QWidget, qtbot: QtBot):
     qtbot.addWidget(window)
-    combo_box: QComboBox = path(window).combobox().get()
-    assert combo_box.itemText(0) == "Option 1"
+    combo_box: QComboBox = path(window).combobox(1).get()  # finds all children among all Layouts
+    assert combo_box.objectName() == "combo-box-1"
