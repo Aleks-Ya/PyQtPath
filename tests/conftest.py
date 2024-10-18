@@ -51,10 +51,13 @@ def __create_group_box() -> QGroupBox:
 def __create_box_layout() -> QHBoxLayout:
     label1: QLabel = QLabel("VBox Label 1")
     label2: QLabel = QLabel("VBox Label 2")
+    combo_box_3: QComboBox = QComboBox()
+    combo_box_3.setObjectName("combo-box-3")
     layout1: QVBoxLayout = QVBoxLayout()
     layout1.setObjectName("vbox-layout-1")
     layout1.addWidget(label1)
     layout1.addWidget(label2)
+    layout1.addWidget(combo_box_3)
 
     combo_box: QComboBox = QComboBox()
     combo_box.setObjectName("combo-box-2")

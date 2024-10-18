@@ -54,6 +54,9 @@ def test_layout(window: QWidget, qtbot: QtBot):
     label2: QLabel = path(window).layout().layout().layout().label(1).get()
     assert label2.text() == "VBox Label 2"
 
+    combo_box_3: QComboBox = path(window).layout().layout().layout().combobox().get()
+    assert combo_box_3.objectName() == "combo-box-3"
+
     vbox_layout_2: QVBoxLayout = path(window).layout().layout().layout(1).get()
     assert vbox_layout_2.objectName() == "vbox-layout-2"
 
@@ -63,5 +66,5 @@ def test_layout(window: QWidget, qtbot: QtBot):
 
 def test_combo_box(window: QWidget, qtbot: QtBot):
     qtbot.addWidget(window)
-    combo_box: QComboBox = path(window).combobox(1).get()  # finds all children among all Layouts
+    combo_box: QComboBox = path(window).combobox(2).get()  # finds all children among all Layouts
     assert combo_box.objectName() == "combo-box-1"
