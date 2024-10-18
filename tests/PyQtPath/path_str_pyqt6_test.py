@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QLabel, QWidget, QPushButton, QGroupBox, QCheckBox
+from PyQt6.QtWidgets import QLabel, QWidget, QPushButton, QGroupBox, QCheckBox, QVBoxLayout
 from pytestqt.qtbot import QtBot
 
 from src.PyQtPath.path_str_pyqt6 import child
@@ -31,3 +31,25 @@ def test_group_box(window: QWidget, qtbot: QtBot):
 
     check_box_2: QCheckBox = child(window, "QGroupBox/QCheckBox/1")
     assert check_box_2.text() == "Option 2"
+
+
+def test_get_current(window: QWidget, qtbot: QtBot):
+    qtbot.addWidget(window)
+    widget: QWidget = child(window, "")
+    assert widget == window
+
+
+def test_layout(window: QWidget, qtbot: QtBot):
+    qtbot.addWidget(window)
+
+    window_layout: QVBoxLayout = child(window, "QVBoxLayout")
+    assert window_layout.objectName() == "window-layout"
+
+    vbox_layout: QVBoxLayout = child(window, "QVBoxLayout/QVBoxLayout")
+    assert vbox_layout.objectName() == "vbox-layout"
+
+    label1: QLabel = child(window, "QVBoxLayout/QVBoxLayout/QLabel")
+    assert label1.text() == "VBox Label 1"
+
+    label2: QLabel = child(window, "QVBoxLayout/QVBoxLayout/QLabel/1")
+    assert label2.text() == "VBox Label 2"

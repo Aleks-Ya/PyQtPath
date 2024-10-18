@@ -1,5 +1,4 @@
-from PyQt5.QtWidgets import QCheckBox
-from PyQt6.QtWidgets import QLabel, QWidget, QPushButton, QGroupBox
+from PyQt6.QtWidgets import QLabel, QWidget, QPushButton, QGroupBox, QCheckBox, QVBoxLayout
 from pytestqt.qtbot import QtBot
 
 from src.PyQtPath.path_chain_pyqt6 import path
@@ -32,3 +31,25 @@ def test_group_box(window: QWidget, qtbot: QtBot):
 
     check_box_2: QCheckBox = path(window).group().checkbox(1).get()
     assert check_box_2.text() == "Option 2"
+
+
+def test_get_current(window: QWidget, qtbot: QtBot):
+    qtbot.addWidget(window)
+    widget: QWidget = path(window).get()
+    assert widget == window
+
+
+def test_layout(window: QWidget, qtbot: QtBot):
+    qtbot.addWidget(window)
+
+    window_layout: QVBoxLayout = path(window).layout().get()
+    assert window_layout.objectName() == "window-layout"
+
+    vbox_layout: QVBoxLayout = path(window).layout().layout().get()
+    assert vbox_layout.objectName() == "vbox-layout"
+
+    label1: QLabel = path(window).layout().layout().label().get()
+    assert label1.text() == "VBox Label 1"
+
+    label2: QLabel = path(window).layout().layout().label(1).get()
+    assert label2.text() == "VBox Label 2"

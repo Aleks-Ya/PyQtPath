@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:Get root QObject;
+:Current child is the root QObject;
+while (Is operation) is (not "get")
+    if (object is QLayout?) then (true)
+        :Get children by "itemAt()";
+    else (false)
+        :Get children by "children()";
+    endif
+    :Get object from children by index;
+endwhile ("get")
+:Return current child;
+stop
+
+@enduml
