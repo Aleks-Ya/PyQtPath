@@ -1,5 +1,5 @@
 import pytest
-from PyQt6.QtWidgets import QWidget, QLabel, QDialog, QVBoxLayout, QPushButton, QGroupBox
+from PyQt6.QtWidgets import QWidget, QLabel, QDialog, QVBoxLayout, QPushButton, QGroupBox, QCheckBox
 
 
 @pytest.fixture
@@ -28,4 +28,11 @@ def __create_dialog() -> QDialog:
 
 
 def __create_group_box() -> QGroupBox:
-    return QGroupBox("Options")
+    checkbox1: QCheckBox = QCheckBox("Option 1")
+    checkbox2: QCheckBox = QCheckBox("Option 2")
+    group_layout: QVBoxLayout = QVBoxLayout()
+    group_layout.addWidget(checkbox1)
+    group_layout.addWidget(checkbox2)
+    group_box: QGroupBox = QGroupBox("Options")
+    group_box.setLayout(group_layout)
+    return group_box

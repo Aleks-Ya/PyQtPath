@@ -3,13 +3,12 @@ from typing import Optional
 import importlib
 
 from PyQt6.QtCore import QObject
-from PyQt6.QtWidgets import QWidget
 
 
-def child(widget: QWidget, path: str) -> Optional:
+def child(widget: QObject, path: str) -> Optional:
     if widget is None or path is None or len(path) == 0:
         return None
-    normalized_path: list[(type[QWidget], int)] = __normalize_path(path)
+    normalized_path: list[(type[QObject], int)] = __normalize_path(path)
     return __nested_child(widget, normalized_path)
 
 

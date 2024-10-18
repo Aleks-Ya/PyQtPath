@@ -1,8 +1,8 @@
 from PyQt6.QtCore import QObject
-from PyQt6.QtWidgets import QWidget, QCheckBox, QLabel, QDialog, QPushButton, QTableWidget, QGroupBox
+from PyQt6.QtWidgets import QCheckBox, QLabel, QDialog, QPushButton, QTableWidget, QGroupBox
 
 
-def path(widget: QWidget):
+def path(widget: QObject):
     return Path([widget])
 
 
@@ -31,5 +31,5 @@ class Path:
     def group(self, index: int = 0) -> 'Path':
         return self.child(QGroupBox, index)
 
-    def child(self, clazz: type[QWidget], index: int = 0):
+    def child(self, clazz: type[QObject], index: int = 0):
         return Path([self.widgets[0].findChildren(clazz)[index]])
