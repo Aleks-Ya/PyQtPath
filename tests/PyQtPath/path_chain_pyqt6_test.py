@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QLabel, QWidget, QPushButton, QGroupBox, QCheckBox, QVBoxLayout
+from PyQt6.QtWidgets import QLabel, QWidget, QPushButton, QGroupBox, QCheckBox, QVBoxLayout, QComboBox
 from pytestqt.qtbot import QtBot
 
 from src.PyQtPath.path_chain_pyqt6 import path
@@ -53,3 +53,9 @@ def test_layout(window: QWidget, qtbot: QtBot):
 
     label2: QLabel = path(window).layout().layout().label(1).get()
     assert label2.text() == "VBox Label 2"
+
+
+def test_combo_box(window: QWidget, qtbot: QtBot):
+    qtbot.addWidget(window)
+    combo_box: QComboBox = path(window).combobox().get()
+    assert combo_box.itemText(0) == "Option 1"

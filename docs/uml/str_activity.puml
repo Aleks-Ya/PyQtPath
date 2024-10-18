@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:Get a string path;
+:Normalize the string path to list of Class and Index pairs;
+repeat :all pairs;
+:Get the next Class and index;
+:Find all nested elements of Class in current object;
+:Get the nested element by index;
+:Set the current object the chosen nested element;
+repeat while
+:Return current child;
+stop
+
+@enduml

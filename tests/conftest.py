@@ -1,5 +1,5 @@
 import pytest
-from PyQt6.QtWidgets import QWidget, QLabel, QDialog, QVBoxLayout, QPushButton, QGroupBox, QCheckBox
+from PyQt6.QtWidgets import QWidget, QLabel, QDialog, QVBoxLayout, QPushButton, QGroupBox, QCheckBox, QComboBox
 
 
 @pytest.fixture
@@ -10,10 +10,14 @@ def window() -> QWidget:
     layout.setObjectName("window-layout")
     group_box: QGroupBox = __create_group_box()
     box_layout: QVBoxLayout = __create_box_layout()
+    combo_box: QComboBox = __create_combo_box()
+
     layout.addWidget(label)
     layout.addWidget(dialog)
     layout.addWidget(group_box)
     layout.addLayout(box_layout)
+    layout.addWidget(combo_box)
+
     window: QWidget = QWidget()
     window.setLayout(layout)
     return window
@@ -51,3 +55,9 @@ def __create_box_layout() -> QVBoxLayout:
     layout.addWidget(label1)
     layout.addWidget(label2)
     return layout
+
+
+def __create_combo_box() -> QComboBox:
+    combo_box: QComboBox = QComboBox()
+    combo_box.addItems(["Option 1", "Option 2"])
+    return combo_box

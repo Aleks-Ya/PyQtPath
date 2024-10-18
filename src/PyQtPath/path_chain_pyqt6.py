@@ -1,5 +1,5 @@
 from PyQt6.QtCore import QObject
-from PyQt6.QtWidgets import QCheckBox, QLabel, QDialog, QPushButton, QTableWidget, QGroupBox, QLayout
+from PyQt6.QtWidgets import QCheckBox, QLabel, QDialog, QPushButton, QTableWidget, QGroupBox, QLayout, QComboBox
 
 from .types import QObjectSubClass
 
@@ -32,6 +32,9 @@ class Path:
 
     def group(self, index: int = 0) -> 'Path':
         return self.child(QGroupBox, index)
+
+    def combobox(self, index: int = 0) -> 'Path':
+        return self.child(QComboBox, index)
 
     def layout(self, index: int = 0) -> 'Path':
         obj: QObject = self.objects[0]

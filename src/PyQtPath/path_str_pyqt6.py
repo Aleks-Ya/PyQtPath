@@ -2,7 +2,7 @@ from types import ModuleType
 import importlib
 
 from PyQt6.QtCore import QObject
-from PyQt6.QtWidgets import QLayout
+from PyQt6.QtWidgets import QLayout, QWidget
 
 from src.PyQtPath.types import QObjectSubClass
 
@@ -33,7 +33,7 @@ def __get_children_of_class(current_object: QObject, clazz: type[QObject]) -> li
         if issubclass(clazz, QLayout):
             children: list[QObject] = current_object.findChildren(clazz)
         else:
-            children: list[QObject] = __get_layout_children(current_object)
+            children: list[QObject] = __get_layout_children(current_object, clazz)
     else:
         if issubclass(clazz, QLayout):
             children: list[QObject] = current_object.findChildren(clazz)
@@ -58,8 +58,10 @@ def __normalize_path(path: str) -> list[(type[QObject], int)]:
             yield clazz, 0
 
 
-def __get_layout_children(layout: QLayout) -> list[QObject]:
+def __get_layout_children(layout: QLayout, clazz: type[QObject]) -> list[QObject]:
     children: list[QObject] = []
     for i in range(layout.count()):
-        children.append(layout.itemAt(i).widget())
+        widget: QWidget = layout.itemAt(i).widget()
+        if isinstance(widget, clazz):
+            children.append(widget)
     return children
