@@ -21,20 +21,25 @@ def __nested_child(top_object: QObject, path: list[(type[QObject], int)]) -> QOb
     for part in path:
         clazz: type[QObject] = part[0]
         index: int = part[1]
-        if isinstance(current_object, QLayout):
-            if issubclass(clazz, QLayout):
-                children: list[QObject] = current_object.findChildren(clazz)
-            else:
-                children: list[QObject] = __get_layout_children(current_object)
-        else:
-            if issubclass(clazz, QLayout):
-                children: list[QObject] = current_object.findChildren(clazz)
-            else:
-                children: list[QObject] = current_object.findChildren(clazz)
+        children: list[QObject] = __get_children_of_class(current_object, clazz)
         if len(children) == 0:
             return None
         current_object = children[index]
     return current_object
+
+
+def __get_children_of_class(current_object: QObject, clazz: type[QObject]) -> list[QObject]:
+    if isinstance(current_object, QLayout):
+        if issubclass(clazz, QLayout):
+            children: list[QObject] = current_object.findChildren(clazz)
+        else:
+            children: list[QObject] = __get_layout_children(current_object)
+    else:
+        if issubclass(clazz, QLayout):
+            children: list[QObject] = current_object.findChildren(clazz)
+        else:
+            children: list[QObject] = current_object.findChildren(clazz)
+    return children
 
 
 def __normalize_path(path: str) -> list[(type[QObject], int)]:
