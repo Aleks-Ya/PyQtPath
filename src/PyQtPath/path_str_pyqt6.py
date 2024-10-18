@@ -1,18 +1,19 @@
 from types import ModuleType
-from typing import Optional
 import importlib
 
 from PyQt6.QtCore import QObject
 
+from src.PyQtPath.types import QObjectSubClass
 
-def child(top_object: QObject, path: str) -> Optional:
+
+def child(top_object: QObject, path: str) -> QObjectSubClass:
     if top_object is None or path is None or len(path) == 0:
         return None
     normalized_path: list[(type[QObject], int)] = __normalize_path(path)
     return __nested_child(top_object, normalized_path)
 
 
-def __nested_child(top_object: QObject, path: list[(type[QObject], int)]) -> Optional:
+def __nested_child(top_object: QObject, path: list[(type[QObject], int)]) -> QObjectSubClass:
     current_object: QObject = top_object
     for part in path:
         clazz: type[QObject] = part[0]
