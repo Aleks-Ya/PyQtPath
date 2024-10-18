@@ -2,6 +2,7 @@ from types import ModuleType
 from typing import Optional
 import importlib
 
+from PyQt6.QtCore import QObject
 from PyQt6.QtWidgets import QWidget
 
 
@@ -12,19 +13,19 @@ def child(widget: QWidget, path: str) -> Optional:
     return __nested_child(widget, normalized_path)
 
 
-def __nested_child(widget: QWidget, path: list[(type[QWidget], int)]) -> Optional:
-    current_widget: QWidget = widget
+def __nested_child(widget: QObject, path: list[(type[QObject], int)]) -> Optional:
+    current_widget: QObject = widget
     for part in path:
-        clazz: type[QWidget] = part[0]
+        clazz: type[QObject] = part[0]
         index: int = part[1]
-        children: list[QWidget] = current_widget.findChildren(clazz)
+        children: list[QObject] = current_widget.findChildren(clazz)
         if len(children) == 0:
             return None
         current_widget = children[index]
     return current_widget
 
 
-def __normalize_path(path: str) -> list[(type[QWidget], int)]:
+def __normalize_path(path: str) -> list[(type[QObject], int)]:
     if path is None or len(path) == 0:
         return []
     parts: list[str] = path.split("/")
@@ -33,7 +34,7 @@ def __normalize_path(path: str) -> list[(type[QWidget], int)]:
             continue
         next_part: str = parts[i + 1] if i < len(parts) - 1 else None
         module: ModuleType = importlib.import_module("PyQt6.QtWidgets")
-        clazz: type[QWidget] = getattr(module, part)
+        clazz: type[QObject] = getattr(module, part)
         if next_part is not None and next_part.isdigit():
             yield clazz, int(next_part)
         else:

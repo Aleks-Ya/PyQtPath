@@ -1,5 +1,5 @@
 import pytest
-from PyQt6.QtWidgets import QWidget, QLabel, QDialog, QVBoxLayout, QPushButton
+from PyQt6.QtWidgets import QWidget, QLabel, QDialog, QVBoxLayout, QPushButton, QGroupBox
 
 
 @pytest.fixture
@@ -7,8 +7,10 @@ def window() -> QWidget:
     label: QLabel = QLabel("Hello, World!")
     dialog: QDialog = __create_dialog()
     layout: QVBoxLayout = QVBoxLayout()
+    group_box: QGroupBox = __create_group_box()
     layout.addWidget(label)
     layout.addWidget(dialog)
+    layout.addWidget(group_box)
     window: QWidget = QWidget()
     window.setLayout(layout)
     return window
@@ -23,3 +25,7 @@ def __create_dialog() -> QDialog:
     dialog: QDialog = QDialog()
     dialog.setLayout(layout)
     return dialog
+
+
+def __create_group_box() -> QGroupBox:
+    return QGroupBox("Options")

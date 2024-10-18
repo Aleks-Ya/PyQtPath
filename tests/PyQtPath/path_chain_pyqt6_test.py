@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QLabel, QWidget, QPushButton
+from PyQt6.QtWidgets import QLabel, QWidget, QPushButton, QGroupBox
 from pytestqt.qtbot import QtBot
 
 from src.PyQtPath.path_chain_pyqt6 import path
@@ -18,3 +18,6 @@ def test_get_nested_element(window: QWidget, qtbot: QtBot):
 
     close_button: QPushButton = path(window).dialog().button(1).get()
     assert close_button.text() == "Close"
+
+    group_box: QGroupBox = path(window).group().get()
+    assert group_box.title() == "Options"
