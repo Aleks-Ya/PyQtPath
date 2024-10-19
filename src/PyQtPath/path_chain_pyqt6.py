@@ -44,11 +44,15 @@ class PyQtPath:
         lay: QLayout = layouts[index]
         return PyQtPath([lay])
 
-    def child(self, clazz: type[QObject], index: int = 0) -> 'PyQtPath':
+    def children(self, clazz: type[QObject]) -> list[QObjectSubClass]:
         obj: QObject = self.objects[0]
         if isinstance(obj, QLayout):
             widgets: list[QWidget] = [obj.itemAt(i).widget() for i in range(obj.count())]
             class_widgets: list[QWidget] = [widget for widget in widgets if isinstance(widget, clazz)]
-            return PyQtPath([class_widgets[index]])
+            return class_widgets
         else:
-            return PyQtPath([obj.findChildren(clazz)[index]])
+            return obj.findChildren(clazz)
+
+    def child(self, clazz: type[QObject], index: int = 0) -> 'PyQtPath':
+        children: list[QObject] = self.children(clazz)
+        return PyQtPath([children[index]])

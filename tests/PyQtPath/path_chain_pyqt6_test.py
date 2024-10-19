@@ -68,3 +68,13 @@ def test_combo_box(window: QWidget, qtbot: QtBot):
     qtbot.addWidget(window)
     combo_box: QComboBox = path(window).combobox(2).get()  # finds all children among all Layouts
     assert combo_box.objectName() == "combo-box-1"
+
+
+def test_children(window: QWidget, qtbot: QtBot):
+    qtbot.addWidget(window)
+
+    label1: QLabel = path(window).layout().layout().layout().label(0).get()
+    label2: QLabel = path(window).layout().layout().layout().label(1).get()
+
+    labels: list[QLabel] = path(window).layout().layout().layout().children(QLabel)
+    assert labels == [label1, label2]
