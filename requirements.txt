@@ -4,3 +4,5 @@ pytest-qt
 bump-my-version
 build
 twine
+wheel
+setuptools
