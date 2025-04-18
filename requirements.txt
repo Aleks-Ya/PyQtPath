@@ -1,3 +1,5 @@
 PyQt6
 pytest-qt
 bump-my-version
+build
+twine
