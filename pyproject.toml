@@ -1,6 +1,6 @@
 [project]
 name = "PyQtPath"
-version = "0.0.5"
+version = "0.2.6"
 authors = [
     { name = "Alexey Yablokov", email = "alex_ya@mailbox.org" }
 ]
